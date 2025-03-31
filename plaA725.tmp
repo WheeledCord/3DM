@@ -1,0 +1,240 @@
+[gd_scene load_steps=17 format=3 uid="uid://de3ceg246pukp"]
+
+[ext_resource type="Texture2D" uid="uid://bj66wc3erf82s" path="res://fat man.png" id="1_com48"]
+
+[sub_resource type="GDScript" id="GDScript_xnnog"]
+script/source = "extends CharacterBody2D
+
+const SPEED = 70.0
+const JUMP_VELOCITY = -200.0
+const HIGH_JUMP_VELOCITY = -400.0  # Higher jump value when space is released
+const SPLAT_DURATION = 2.0  # Duration of the \"splat\" animation
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+var is_punching = false
+var is_holding_space = false
+var is_splatting = false
+
+func _ready():
+    # Set the player's position to the saved position from the previous scene
+    global_position = Global.player_position
+    $AnimatedSprite2D.flip_h = Global.player_facing_left
+
+func _physics_process(delta):
+    # Apply gravity if not on the floor
+    if not is_on_floor():
+        velocity.y += gravity * delta
+
+    # Handle punch action
+    if Input.is_action_just_pressed(\"punch\") and is_on_floor() and not is_punching:
+        punch()
+
+    # Handle movement and other actions only if not punching or holding space
+    if not is_punching and not is_holding_space and not is_splatting:
+        var direction = 0.0
+        if Input.is_action_pressed(\"left\"):
+            direction -= 1
+        if Input.is_action_pressed(\"right\"):
+            direction += 1
+
+        # Set velocity based on direction input
+        velocity.x = direction * SPEED
+
+        # Flip the sprite to face the correct direction if moving
+        if direction != 0:
+            $AnimatedSprite2D.flip_h = direction < 0  # Flip when moving left
+
+        # Handle jump if space is pressed
+        if Input.is_action_just_pressed(\"jump\") and is_on_floor():
+            velocity.y = JUMP_VELOCITY
+
+        # Handle space holding for high jump
+        if Input.is_action_pressed(\"jump\"):
+            is_holding_space = true
+            velocity.x = 0  # Stop horizontal movement
+        elif Input.is_action_just_released(\"jump\") and is_holding_space:
+            velocity.y = HIGH_JUMP_VELOCITY  # Perform a higher jump
+            is_holding_space = false
+
+        # Determine the appropriate animation to play based on movement and grounded state
+        if not is_on_floor():
+            if velocity.y < 0:
+                $AnimatedSprite2D.play(\"jump\")  # Jumping upwards
+            else:
+                $AnimatedSprite2D.play(\"dive\")  # Falling downwards
+        elif direction != 0:
+            $AnimatedSprite2D.play(\"walkright\")
+        else:
+            $AnimatedSprite2D.play(\"idleright\")
+    elif is_splatting:
+        velocity.x = 0  # Ensure the player doesn't move during splat
+
+    # Move the player
+    var collision_info = move_and_slide()
+
+    # Handle splatting if the player hits the ground
+    if is_holding_space and is_on_floor() and not is_splatting:
+        is_splatting = true
+        is_holding_space = false
+        $AnimatedSprite2D.play(\"splat\")
+        velocity = Vector2.ZERO
+        await get_tree().create_timer(SPLAT_DURATION).timeout
+        is_splatting = false
+        $AnimatedSprite2D.play(\"idleright\")
+
+func punch():
+    # Stop the player's movement immediately when punching starts
+    velocity.x = 0
+    is_punching = true
+    $AnimatedSprite2D.play(\"punch\")
+
+    # Connect to the animation_finished signal to know when the punch is done
+    $AnimatedSprite2D.connect(\"animation_finished\", Callable(self, \"_on_punch_finished\"))
+
+func _on_punch_finished():
+    is_punching = false
+    $AnimatedSprite2D.disconnect(\"animation_finished\", Callable(self, \"_on_punch_finished\"))
+
+    # After punching, determine the correct animation based on movement
+    if not is_on_floor():
+        $AnimatedSprite2D.play(\"jump\")
+    elif Input.is_action_pressed(\"left\") or Input.is_action_pressed(\"right\"):
+        $AnimatedSprite2D.play(\"walkright\")
+    else:
+        $AnimatedSprite2D.play(\"idleright\")
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ji2es"]
+radius = 7.0
+height = 24.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ic5q"]
+atlas = ExtResource("1_com48")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0w55"]
+atlas = ExtResource("1_com48")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqqbq"]
+atlas = ExtResource("1_com48")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dds0o"]
+atlas = ExtResource("1_com48")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jhky"]
+atlas = ExtResource("1_com48")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ue5xc"]
+atlas = ExtResource("1_com48")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1w43b"]
+atlas = ExtResource("1_com48")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7te4n"]
+atlas = ExtResource("1_com48")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1uksd"]
+atlas = ExtResource("1_com48")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djh5s"]
+atlas = ExtResource("1_com48")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_typti"]
+atlas = ExtResource("1_com48")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i17u8"]
+atlas = ExtResource("1_com48")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y8qgm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ic5q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0w55")
+}],
+"loop": true,
+"name": &"dive",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqqbq")
+}],
+"loop": true,
+"name": &"idleright",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dds0o")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5jhky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ue5xc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1w43b")
+}],
+"loop": false,
+"name": &"punch",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7te4n")
+}],
+"loop": true,
+"name": &"splat",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1uksd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_djh5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_typti")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i17u8")
+}],
+"loop": true,
+"name": &"walkright",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = SubResource("GDScript_xnnog")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_ji2es")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -5)
+sprite_frames = SubResource("SpriteFrames_y8qgm")
+animation = &"dive"
+frame_progress = 0.349241

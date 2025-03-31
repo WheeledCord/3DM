@@ -1,0 +1,153 @@
+[gd_scene load_steps=13 format=3 uid="uid://b3yvo2646nerw"]
+
+[ext_resource type="Script" path="res://scripts/gregerson.gd" id="1_73tng"]
+[ext_resource type="TileSet" uid="uid://doy3xicswa1ad" path="res://textures/tileset.tres" id="2_u7v4p"]
+[ext_resource type="PackedScene" uid="uid://de3ceg246pukp" path="res://scenes/player.tscn" id="3_cjhtu"]
+[ext_resource type="Texture2D" uid="uid://dg08icrcb8lom" path="res://textures/rainparticle.png" id="5_bctkq"]
+[ext_resource type="AudioStream" uid="uid://dnxrjv1c76nqv" path="res://sounds/gregerson theme.mp3" id="6_65p5u"]
+[ext_resource type="PackedScene" uid="uid://mre0ooqiyoe2" path="res://scenes/door.tscn" id="7_01dnn"]
+[ext_resource type="Texture2D" uid="uid://cmein51t2lrwh" path="res://textures/night.png" id="8_aweod"]
+[ext_resource type="Texture2D" uid="uid://ci2yhtlmsvurd" path="res://textures/grotty john.png" id="8_r6w3r"]
+[ext_resource type="Texture2D" uid="uid://s01dd6f55u4q" path="res://textures/sky.png" id="8_vo421"]
+
+[sub_resource type="GDScript" id="GDScript_xb6nh"]
+script/source = "extends Camera2D
+
+@export var follow_target: Node2D
+@export var smooth_speed := 5.0
+@export var tilemap: TileMap  # Reference to the TileMap that defines the camera limits
+
+func _ready():
+	# Update camera limits based on the size of the TileMap
+	set_camera_limits()
+
+func _process(delta):
+	# Move the camera toward the follow_target position smoothly
+	if follow_target:
+		var target_position = follow_target.global_position
+		
+		# Smoothly move the camera towards the follow_target
+		var new_position = global_position.lerp(target_position, smooth_speed * delta)
+		
+		# Clamp the camera position within the calculated limits
+		new_position.x = clamp(new_position.x, limit_left, limit_right)
+		new_position.y = clamp(new_position.y, limit_top, limit_bottom)
+		
+		# Set the camera's position after clamping
+		global_position = new_position
+
+func set_camera_limits():
+	# Get the used rectangle of the TileMap to find its extents
+	var map_limits = tilemap.get_used_rect()
+	
+	# Get the tile size from the TileMap's TileSet
+	var tile_size = tilemap.tile_set.tile_size
+	
+	# Set the camera's limit properties based on the TileMap size and position
+	limit_left = map_limits.position.x * tile_size.x
+	limit_right = map_limits.end.x * tile_size.x
+	limit_top = map_limits.position.y * tile_size.y
+	limit_bottom = map_limits.end.y * tile_size.y
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvumh"]
+atlas = ExtResource("8_r6w3r")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_66nkk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvumh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_73tng")
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(0, 96)
+tile_set = ExtResource("2_u7v4p")
+format = 2
+layer_0/name = "front"
+layer_0/z_index = 6
+layer_0/tile_data = PackedInt32Array(-131085, 524292, 9, -65531, 1114116, 8, -65530, 1179652, 8, -65527, 1245188, 8, -131072, 917508, 8, -65559, 851972, 10, -65558, 917508, 10, -65557, 983044, 10)
+layer_1/name = "frontbehindplayer"
+layer_1/y_sort_origin = 1
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array(-131078, 917508, 8, -131083, 720900, 8, -65527, 1245188, 8, -65531, 1114116, 8, -65530, 1179652, 8, -65538, 589828, 6, -65537, 655364, 6, -131072, 917508, 8)
+layer_2/name = "middle"
+layer_2/tile_data = PackedInt32Array(-19, 65540, 10, -20, 65540, 10, 65516, 65540, 11, 65517, 65540, 11, 131053, 65540, 11, 196589, 65540, 11, 196588, 65540, 11, 131052, 65540, 11, -24, 65540, 10, 65512, 65540, 11, 131048, 65540, 11, 196584, 65540, 11, -23, 65540, 10, 65513, 65540, 11, 131049, 65540, 11, 196585, 65540, 11, -22, 65540, 10, 65514, 65540, 11, 131050, 65540, 11, 196586, 65540, 11, -21, 65540, 10, 65515, 65540, 11, 131051, 65540, 11, 196587, 65540, 11, -18, 65540, 11, 65518, 65540, 11, 131054, 65540, 11, 196590, 65540, 11, -17, 65540, 11, 65519, 65540, 11, 131055, 65540, 11, 196591, 65540, 11, -16, 65540, 11, 65520, 65540, 11, 131056, 65540, 11, 196592, 65540, 11, -15, 65540, 11, 65521, 65540, 11, 131057, 65540, 11, 196593, 65540, 11, -14, 65540, 11, 65522, 65540, 11, 131058, 65540, 11, 196594, 65540, 11, -13, 65540, 11, 65523, 65540, 11, 131059, 65540, 11, 196595, 65540, 11, -12, 65540, 11, 65524, 65540, 11, 131060, 65540, 11, 196596, 65540, 11, -11, 65540, 11, 65525, 65540, 11, 131061, 65540, 11, 196597, 65540, 11, -10, 65540, 11, 65526, 65540, 11, 131062, 65540, 11, 196598, 65540, 11, -9, 65540, 11, 65527, 65540, 11, 131063, 65540, 11, 196599, 65540, 11, -65554, 4, 10, -65553, 65540, 10, -65552, 65540, 10, -65551, 65540, 10, -65550, 65540, 10, -65549, 65540, 10, -65548, 65540, 10, -65547, 65540, 10, -65546, 65540, 10, -65545, 65540, 10, -65544, 65540, 10, -65543, 65540, 10, -65542, 65540, 10, -65541, 65540, 10, -65540, 131076, 10, -8, 65540, 11, -7, 65540, 11, -6, 65540, 11, -5, 65540, 11, -4, 65540, 11, -3, 65540, 10, -2, 65540, 10, -1, 65540, 10, -65536, 65540, 10, -65535, 65540, 10, -65534, 65540, 10, -65533, 131076, 10, 4, 65540, 10, 5, 65540, 10, 6, 65540, 10, 7, 65540, 10, 8, 65540, 10, 9, 65540, 10, 10, 65540, 10, 11, 65540, 10, 12, 65540, 10, 13, 65540, 10, 14, 65540, 10, 15, 65540, 10, 16, 65540, 10, 17, 65540, 10, 18, 65540, 10, 19, 65540, 10, 20, 65540, 10, 21, 65540, 10, 22, 65540, 10, 23, 65540, 10, 24, 65540, 10, 25, 65540, 10, 26, 65540, 10, 27, 65540, 10, 28, 65540, 10, 29, 65540, 10, 30, 65540, 10, 65528, 65540, 11, 131064, 65540, 11, 196600, 65540, 11, 65529, 65540, 11, 131065, 65540, 11, 196601, 65540, 11, 65530, 65540, 11, 131066, 65540, 11, 196602, 65540, 11, 65531, 65540, 11, 131067, 65540, 11, 196603, 65540, 11, 65532, 65540, 11, 131068, 65540, 11, 196604, 65540, 11, 65533, 65540, 11, 131069, 65540, 11, 196605, 65540, 11, 65534, 65540, 11, 131070, 65540, 11, 196606, 65540, 11, 65535, 65540, 11, 131071, 65540, 11, 196607, 65540, 11, 0, 65540, 11, 65536, 65540, 11, 131072, 65540, 11, 1, 65540, 11, 65537, 65540, 11, 131073, 65540, 11, 2, 65540, 11, 65538, 65540, 11, 131074, 65540, 11, 3, 65540, 11, 65539, 65540, 11, 131075, 65540, 11, 65540, 65540, 11, 131076, 65540, 11, 65541, 65540, 11, 131077, 65540, 11, 65542, 65540, 11, 131078, 65540, 11, 65543, 65540, 11, 131079, 65540, 11, 65544, 65540, 11, 131080, 65540, 11, 65545, 65540, 11, 131081, 65540, 11, 65546, 65540, 11, 131082, 65540, 11, 65547, 65540, 11, 131083, 65540, 11, 65548, 65540, 11, 131084, 65540, 11, 65549, 65540, 11, 131085, 65540, 11, 65550, 65540, 11, 131086, 65540, 11, 65551, 65540, 11, 131087, 65540, 11, 65552, 65540, 11, 131088, 65540, 11, 65553, 65540, 11, 131089, 65540, 11, 65554, 65540, 11, 131090, 65540, 11, 65555, 65540, 11, 131091, 65540, 11, 65556, 65540, 11, 131092, 65540, 11, 65557, 65540, 11, 131093, 65540, 11, 65558, 65540, 11, 131094, 65540, 11, 65559, 65540, 11, 131095, 65540, 11, 65560, 65540, 11, 131096, 65540, 11, 65561, 65540, 11, 131097, 65540, 11, 65562, 65540, 11, 131098, 65540, 11, 65563, 65540, 11, 131099, 65540, 11, 65564, 65540, 11, 131100, 65540, 11, 65565, 65540, 11, 131101, 65540, 11, 65566, 65540, 11, 131102, 65540, 11, -262157, 4, 7, -196621, 4, 8, -131085, 4, 9, -262156, 65540, 7, -196620, 65540, 8, -131084, 65540, 9, -262155, 131076, 7, -196619, 131076, 8, -131083, 131076, 9, -262154, 196612, 7, -131082, 1114116, 8, -131078, 1245188, 8, -131080, 983044, 8, -131079, 1048580, 8, -131081, 1179652, 8, -131089, 983044, 7, -65532, 4, 1, -131067, 65540, 0, -65531, 65540, 1, -131066, 131076, 0, -65530, 131076, 1, -65529, 196612, 1, -65528, 262148, 1, -131063, 327684, 0, -65527, 327684, 1, -65526, 1048580, 7, -196596, 4, 7, -131060, 4, 8, -65524, 4, 9, -196595, 65540, 7, -131059, 65540, 8, -65523, 65540, 9, -196594, 131076, 7, -131058, 131076, 8, -65522, 131076, 9, -196593, 196612, 7, -65521, 196612, 9, -65516, 720900, 1, -131052, 655364, 0, -262121, 4, 3, -196585, 4, 4, -131049, 4, 5, -65513, 4, 6, -262120, 65540, 3, -196584, 65540, 4, -131048, 65540, 5, -65512, 65540, 6, -262119, 131076, 3, -196583, 131076, 4, -131047, 131076, 5, -65511, 131076, 6, -262118, 196612, 3, -196582, 196612, 4, -131046, 196612, 5, -65510, 196612, 6, -262117, 262148, 3, -196581, 262148, 4, -131045, 262148, 5, -65509, 262148, 6, -262116, 327684, 3, -196580, 327684, 4, -131044, 327684, 5, -65508, 327684, 6, -262115, 393220, 3, -196579, 393220, 4, -131043, 393220, 5, -65507, 393220, 6, -262114, 458756, 3, -196578, 458756, 4, -131042, 458756, 5, -65506, 458756, 6, -262113, 524292, 3, -196577, 524292, 4, -131041, 524292, 5, -65505, 524292, 6, -327654, 196612, 2, -327653, 262148, 2, -327652, 327684, 2, -327651, 393220, 2, -327650, 458756, 2, -327649, 524292, 2, -393187, 393220, 1, 31, 65540, 10, 32, 65540, 10, 33, 65540, 10, 34, 65540, 10, 35, 65540, 10, 65567, 65540, 11, 131103, 65540, 11, 65568, 65540, 11, 131104, 65540, 11, 65569, 65540, 11, 131105, 65540, 11, 65570, 65540, 11, 131106, 65540, 11, 65571, 65540, 11, 131107, 65540, 11, 65572, 65540, 11, 131108, 65540, 11, 65573, 65540, 11, 131109, 65540, 11, 65574, 65540, 11, 131110, 65540, 11, 36, 65540, 10, 37, 65540, 10, 38, 65540, 10, 39, 131076, 10, 65575, 65540, 11, 131111, 65540, 11, 65576, 65540, 10, 65577, 65540, 10, 65578, 65540, 10, 65579, 65540, 10, 65580, 65540, 10, 65581, 65540, 10, 65582, 65540, 10, 65583, 65540, 10, 65584, 65540, 10, 65585, 65540, 10, 65586, 65540, 10, 65587, 65540, 10, 65588, 65540, 10, 65589, 65540, 10, 65590, 65540, 10, 65591, 65540, 10, 65592, 65540, 10, 65593, 65540, 10, 65594, 65540, 10, 65595, 65540, 10, 65596, 65540, 10, 65597, 65540, 10, 65598, 65540, 10, 65599, 65540, 10, 65600, 65540, 10, 65601, 65540, 10, 65602, 65540, 10, 65603, 65540, 10, 131112, 65540, 11, 131113, 65540, 11, 131114, 65540, 11, 131115, 65540, 11, 131116, 65540, 11, 131117, 65540, 11, 131118, 65540, 11, 131119, 65540, 11, 131120, 65540, 11, 131121, 65540, 11, 131122, 65540, 11, 131123, 65540, 11, 131124, 65540, 11, 131125, 65540, 11, 131126, 65540, 11, 131127, 65540, 11, 131128, 65540, 11, 131129, 65540, 11, 131130, 65540, 11, 131131, 65540, 11, 131132, 65540, 11, 131133, 65540, 11, 131134, 65540, 11, 131135, 65540, 11, 131136, 65540, 11, 131137, 65540, 11, 131138, 65540, 11, 131139, 65540, 11, 41, 196612, 9, 43, 196612, 9, 45, 196612, 9, 47, 196612, 9, 49, 196612, 9, 51, 196612, 9, 53, 196612, 9, 55, 196612, 9, 57, 196612, 9, 59, 196612, 9, 61, 196612, 9, 63, 196612, 9, 65, 196612, 9, 67, 196612, 9, 70, 4, 10, 65604, 65540, 10, 65605, 65540, 10, 65606, 65540, 11, 131140, 65540, 11, 131141, 65540, 11, 131142, 65540, 11, 71, 65540, 10, 65607, 65540, 11, 131143, 65540, 11, -65539, 720900, 7, -131074, 786436, 6, -65538, 786436, 7, -131073, 851972, 6, -65537, 851972, 7, -196608, 917508, 6, -131072, 917508, 7, -196607, 655364, 1, -131071, 655364, 2, -65559, 720900, 7, -131094, 786436, 6, -65558, 786436, 7, -131093, 851972, 6, -65557, 851972, 7, -131092, 917508, 6, -65556, 917508, 7, -131086, 786436, 8)
+layer_3/name = "middle-back2"
+layer_3/z_index = -1
+layer_4/name = "back"
+layer_4/z_index = -2
+layer_5/name = "sparkle"
+layer_5/z_index = 2
+
+[node name="Player" parent="." instance=ExtResource("3_cjhtu")]
+z_index = 3
+position = Vector2(-220, -152)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(49, -142)
+amount = 50
+speed_scale = 1.4
+texture = ExtResource("5_bctkq")
+emission_shape = 3
+emission_rect_extents = Vector2(600, 1)
+direction = Vector2(1, 100)
+gravity = Vector2(200, 980)
+scale_amount_max = 2.0
+color = Color(1, 1, 1, 0.65098)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-74, 0)
+stream = ExtResource("6_65p5u")
+autoplay = true
+max_distance = 20000.0
+
+[node name="Doors" type="Node" parent="."]
+
+[node name="Door_shacko" parent="Doors" instance=ExtResource("7_01dnn")]
+position = Vector2(-185, 54)
+destination_level_tag = "gregersoninside"
+destination_door_tag = "shacki"
+
+[node name="Door_inno" parent="Doors" instance=ExtResource("7_01dnn")]
+position = Vector2(439, 86)
+destination_level_tag = "gregersoninside"
+destination_door_tag = "inni"
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target", "tilemap")]
+position = Vector2(0, -72)
+limit_left = 0
+limit_top = 0
+limit_right = 0
+limit_bottom = 0
+limit_smoothed = true
+position_smoothing_speed = 3.0
+rotation_smoothing_speed = 3.0
+script = SubResource("GDScript_xb6nh")
+follow_target = NodePath("../Player")
+tilemap = NodePath("../TileMap")
+
+[node name="Sprite" type="Sprite2D" parent="Camera2D"]
+visible = false
+z_index = -100
+texture = ExtResource("8_vo421")
+
+[node name="Sprite2" type="Sprite2D" parent="Camera2D"]
+visible = false
+z_index = -205
+position = Vector2(0, -48)
+texture = ExtResource("8_aweod")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(291, 80)
+sprite_frames = SubResource("SpriteFrames_66nkk")
+
+[editable path="Doors/Door_shacko"]

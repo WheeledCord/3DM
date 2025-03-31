@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dnxrjv1c76nqv"
+path="res://.godot/imported/gregerson theme.mp3-bb0311a4055badcf29961ce1bff94905.mp3str"
+
+[deps]
+
+source_file="res://sounds/gregerson theme.mp3"
+dest_files=["res://.godot/imported/gregerson theme.mp3-bb0311a4055badcf29961ce1bff94905.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
