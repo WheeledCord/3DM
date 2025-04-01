@@ -16,21 +16,23 @@ func _ready():
 	add_child(audio_player)
 
 func _input(event):
-	if event is InputEventKey:
-		if event.pressed:
-			var text_changed = false
-			if event.keycode == KEY_BACKSPACE:
-				if current_word.length() > 0:
-					current_word = current_word.substr(0, current_word.length() - 1)
-					text_changed = true
-			elif event.keycode == KEY_ENTER:
-				if current_word == target_word:
-					get_tree().change_scene_to_file("res://scenes/gregerson.tscn")
-			else:
-				if current_word.length() < target_word.length():
-					current_word += target_word[current_word.length()]
-					text_changed = true
+	if event is InputEventKey and event.pressed:
+		var text_changed = false
+		# Allow backspace always to remove letters
+		if event.keycode == KEY_BACKSPACE:
+			if current_word.length() > 0:
+				current_word = current_word.substr(0, current_word.length() - 1)
+				text_changed = true
+		# Allow enter key for confirmation
+		elif event.keycode == KEY_ENTER:
+			if current_word == target_word:
+				get_tree().change_scene_to_file("res://scenes/gregerson.tscn")
+		# Only count letter keys (A-Z) for adding a letter
+		elif event.keycode >= KEY_A and event.keycode <= KEY_Z:
+			if current_word.length() < target_word.length():
+				current_word += target_word[current_word.length()]
+				text_changed = true
 
-			if text_changed:
-				set_text(current_word)
-				audio_player.play()  # Play the sound
+		if text_changed:
+			set_text(current_word)
+			audio_player.play()  # Play the sound

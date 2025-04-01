@@ -1,69 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://b3yvo2646nerw"]
+[gd_scene load_steps=10 format=3 uid="uid://b3yvo2646nerw"]
 
-[ext_resource type="Script" path="res://scripts/gregerson.gd" id="1_73tng"]
+[ext_resource type="Script" uid="uid://q8kj8n6fyrdb" path="res://scripts/gregerson.gd" id="1_73tng"]
 [ext_resource type="TileSet" uid="uid://doy3xicswa1ad" path="res://textures/tileset.tres" id="2_u7v4p"]
 [ext_resource type="PackedScene" uid="uid://de3ceg246pukp" path="res://scenes/player.tscn" id="3_cjhtu"]
 [ext_resource type="Texture2D" uid="uid://dg08icrcb8lom" path="res://textures/rainparticle.png" id="5_bctkq"]
 [ext_resource type="AudioStream" uid="uid://dnxrjv1c76nqv" path="res://sounds/gregerson theme.mp3" id="6_65p5u"]
 [ext_resource type="PackedScene" uid="uid://mre0ooqiyoe2" path="res://scenes/door.tscn" id="7_01dnn"]
+[ext_resource type="Script" uid="uid://meutufrjh584" path="res://scripts/camera_2d.gd" id="7_pem1b"]
 [ext_resource type="Texture2D" uid="uid://cmein51t2lrwh" path="res://textures/night.png" id="8_aweod"]
-[ext_resource type="Texture2D" uid="uid://ci2yhtlmsvurd" path="res://textures/grotty john.png" id="8_r6w3r"]
 [ext_resource type="Texture2D" uid="uid://s01dd6f55u4q" path="res://textures/sky.png" id="8_vo421"]
-
-[sub_resource type="GDScript" id="GDScript_xb6nh"]
-script/source = "extends Camera2D
-
-@export var follow_target: Node2D
-@export var smooth_speed := 5.0
-@export var tilemap: TileMap  # Reference to the TileMap that defines the camera limits
-
-func _ready():
-	# Update camera limits based on the size of the TileMap
-	set_camera_limits()
-
-func _process(delta):
-	# Move the camera toward the follow_target position smoothly
-	if follow_target:
-		var target_position = follow_target.global_position
-		
-		# Smoothly move the camera towards the follow_target
-		var new_position = global_position.lerp(target_position, smooth_speed * delta)
-		
-		# Clamp the camera position within the calculated limits
-		new_position.x = clamp(new_position.x, limit_left, limit_right)
-		new_position.y = clamp(new_position.y, limit_top, limit_bottom)
-		
-		# Set the camera's position after clamping
-		global_position = new_position
-
-func set_camera_limits():
-	# Get the used rectangle of the TileMap to find its extents
-	var map_limits = tilemap.get_used_rect()
-	
-	# Get the tile size from the TileMap's TileSet
-	var tile_size = tilemap.tile_set.tile_size
-	
-	# Set the camera's limit properties based on the TileMap size and position
-	limit_left = map_limits.position.x * tile_size.x
-	limit_right = map_limits.end.x * tile_size.x
-	limit_top = map_limits.position.y * tile_size.y
-	limit_bottom = map_limits.end.y * tile_size.y
-"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dvumh"]
-atlas = ExtResource("8_r6w3r")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_66nkk"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dvumh")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_73tng")
@@ -90,13 +35,13 @@ layer_5/z_index = 2
 
 [node name="Player" parent="." instance=ExtResource("3_cjhtu")]
 z_index = 3
-position = Vector2(-220, -152)
+position = Vector2(-184, 54)
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(49, -142)
 amount = 50
-speed_scale = 1.4
 texture = ExtResource("5_bctkq")
+speed_scale = 1.4
 emission_shape = 3
 emission_rect_extents = Vector2(600, 1)
 direction = Vector2(1, 100)
@@ -122,16 +67,21 @@ position = Vector2(439, 86)
 destination_level_tag = "gregersoninside"
 destination_door_tag = "inni"
 
+[node name="Door_shacko2" parent="Doors" instance=ExtResource("7_01dnn")]
+position = Vector2(216, 87)
+destination_level_tag = "gregersoninside"
+destination_door_tag = "shacki2"
+
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target", "tilemap")]
-position = Vector2(0, -72)
-limit_left = 0
-limit_top = 0
-limit_right = 0
-limit_bottom = 0
+position = Vector2(-103, 7)
+limit_left = 100
+limit_top = 100
+limit_right = 100
+limit_bottom = 100
 limit_smoothed = true
 position_smoothing_speed = 3.0
 rotation_smoothing_speed = 3.0
-script = SubResource("GDScript_xb6nh")
+script = ExtResource("7_pem1b")
 follow_target = NodePath("../Player")
 tilemap = NodePath("../TileMap")
 
@@ -146,8 +96,5 @@ z_index = -205
 position = Vector2(0, -48)
 texture = ExtResource("8_aweod")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(291, 80)
-sprite_frames = SubResource("SpriteFrames_66nkk")
-
 [editable path="Doors/Door_shacko"]
+[editable path="Doors/Door_shacko2"]

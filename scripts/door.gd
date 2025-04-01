@@ -8,15 +8,15 @@ class_name Door
 
 @onready var spawn = $spawn
 
-var player_nearby = false  # Tracks if the player is near the door
+var player_nearby = false  # tracks if the player is near the door
 
 func _on_body_entered(body):
 	if body is Player:
-		player_nearby = true  # Mark the player as nearby
+		player_nearby = true  # mark the player as nearby
 
 func _on_body_exited(body):
 	if body is Player:
-		player_nearby = false  # Mark the player as no longer nearby
+		player_nearby = false  # mark the player as no longer nearby
 
 func _process(delta):
 	if player_nearby and Input.is_action_just_pressed("interact"):

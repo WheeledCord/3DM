@@ -1,50 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://b44nx5q2l7mc8"]
 
-[ext_resource type="Script" path="res://scenes/spawnmanager.gd" id="1_3br6t"]
+[ext_resource type="Script" uid="uid://dblnlemoi8uox" path="res://scripts/spawnmanager.gd" id="1_3br6t"]
 [ext_resource type="TileSet" uid="uid://doy3xicswa1ad" path="res://textures/tileset.tres" id="1_iypgy"]
 [ext_resource type="PackedScene" uid="uid://de3ceg246pukp" path="res://scenes/player.tscn" id="2_q0lye"]
 [ext_resource type="AudioStream" uid="uid://dnxrjv1c76nqv" path="res://sounds/gregerson theme.mp3" id="3_kimxf"]
 [ext_resource type="PackedScene" uid="uid://mre0ooqiyoe2" path="res://scenes/door.tscn" id="4_gylo1"]
-
-[sub_resource type="GDScript" id="GDScript_0ufb6"]
-script/source = "extends Camera2D
-
-@export var follow_target: Node2D
-@export var smooth_speed := 5.0
-@export var tilemap: TileMap  # Reference to the TileMap that defines the camera limits
-
-func _ready():
-	# Update camera limits based on the size of the TileMap
-	set_camera_limits()
-
-func _process(delta):
-	# Move the camera toward the follow_target position smoothly
-	if follow_target:
-		var target_position = follow_target.global_position
-		
-		# Smoothly move the camera towards the follow_target
-		var new_position = global_position.lerp(target_position, smooth_speed * delta)
-		
-		# Clamp the camera position within the calculated limits
-		new_position.x = clamp(new_position.x, limit_left, limit_right)
-		new_position.y = clamp(new_position.y, limit_top, limit_bottom)
-		
-		# Set the camera's position after clamping
-		global_position = new_position
-
-func set_camera_limits():
-	# Get the used rectangle of the TileMap to find its extents
-	var map_limits = tilemap.get_used_rect()
-	
-	# Get the tile size from the TileMap's TileSet
-	var tile_size = tilemap.tile_set.tile_size
-	
-	# Set the camera's limit properties based on the TileMap size and position
-	limit_left = map_limits.position.x * tile_size.x
-	limit_right = map_limits.end.x * tile_size.x
-	limit_top = map_limits.position.y * tile_size.y
-	limit_bottom = map_limits.end.y * tile_size.y
-"
+[ext_resource type="Script" uid="uid://meutufrjh584" path="res://scripts/camera_2d.gd" id="6_q1bnk"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_3br6t")
@@ -68,8 +29,10 @@ position = Vector2(440, 86)
 destination_level_tag = "gregerson"
 destination_door_tag = "inno"
 
-[node name="Player" parent="." instance=ExtResource("2_q0lye")]
-position = Vector2(-184, 54)
+[node name="Door_shacki2" parent="Doors" instance=ExtResource("4_gylo1")]
+position = Vector2(215, 86)
+destination_level_tag = "gregerson"
+destination_door_tag = "shacko2"
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(0, 96)
@@ -77,12 +40,12 @@ tile_set = ExtResource("1_iypgy")
 format = 2
 layer_0/name = "front"
 layer_0/z_index = 6
-layer_0/tile_data = PackedInt32Array(-131085, 524292, 9, -131000, 393220, 11, -196680, 393220, 11)
+layer_0/tile_data = PackedInt32Array(-393190, 327684, 11)
 layer_1/name = "frontbehindplayer"
 layer_1/y_sort_origin = 1
 layer_1/z_index = 1
 layer_2/name = "middle"
-layer_2/tile_data = PackedInt32Array(-262157, 327684, 7, -196621, 327684, 8, -131085, 327684, 9, -262156, 393220, 7, -196620, 393220, 8, -131084, 393220, 9, -262155, 458756, 7, -196619, 458756, 8, -131083, 458756, 9, -196596, 327684, 7, -131060, 327684, 8, -65524, 327684, 9, -196595, 393220, 7, -131059, 393220, 8, -65523, 393220, 9, -196594, 458756, 7, -131058, 458756, 8, -65522, 458756, 9, -196585, 851972, 2, -131049, 851972, 3, -65513, 851972, 4, -262120, 917508, 1, -196584, 917508, 2, -131048, 917508, 3, -65512, 917508, 4, -262119, 983044, 1, -196583, 983044, 2, -131047, 983044, 3, -65511, 983044, 4, -262118, 1048580, 1, -196582, 1048580, 2, -131046, 1048580, 3, -65510, 1048580, 4, -262117, 1114116, 1, -196581, 1114116, 2, -131045, 1114116, 3, -65509, 1114116, 4, -262116, 1179652, 1, -196580, 1179652, 2, -131044, 1179652, 3, -65508, 1179652, 4, -262115, 1245188, 1, -196579, 1245188, 2, -131043, 1245188, 3, -65507, 1245188, 4, -262114, 1310724, 1, -196578, 1310724, 2, -131042, 1310724, 3, -65506, 1310724, 4, -65549, 327684, 10, -65548, 393220, 10, -65547, 458756, 10, 12, 327684, 10, 13, 393220, 10, 14, 458756, 10, 23, 851972, 5, 24, 917508, 5, 25, 983044, 5, 26, 1048580, 5, 27, 1114116, 5, 28, 1179652, 5, 29, 1245188, 5, 30, 1310724, 5)
+layer_2/tile_data = PackedInt32Array(-262157, 327684, 7, -196621, 327684, 8, -131085, 327684, 9, -262156, 393220, 7, -196620, 393220, 8, -131084, 393220, 9, -262155, 458756, 7, -196619, 458756, 8, -131083, 458756, 9, -196596, 327684, 7, -131060, 327684, 8, -65524, 327684, 9, -196595, 393220, 7, -131059, 393220, 8, -65523, 393220, 9, -196594, 458756, 7, -131058, 458756, 8, -65522, 458756, 9, -196585, 851972, 2, -131049, 851972, 3, -65513, 851972, 4, -262120, 917508, 1, -196584, 917508, 2, -131048, 917508, 3, -65512, 917508, 4, -196583, 983044, 2, -131047, 983044, 3, -65511, 983044, 4, -196582, 1048580, 2, -131046, 1048580, 3, -65510, 1048580, 4, -262117, 1114116, 1, -196581, 1114116, 2, -131045, 1114116, 3, -65509, 1114116, 4, -262116, 1179652, 1, -196580, 1179652, 2, -131044, 1179652, 3, -65508, 1179652, 4, -262115, 1245188, 1, -196579, 1245188, 2, -131043, 1245188, 3, -65507, 1245188, 4, -262114, 1310724, 1, -196578, 1310724, 2, -131042, 1310724, 3, -65506, 1310724, 4, -327654, 196612, 2, 23, 851972, 5, 24, 917508, 5, 25, 983044, 5, 26, 1048580, 5, 27, 1114116, 5, 28, 1179652, 5, 29, 1245188, 5, 30, 1310724, 5, -262119, 983044, 1, -262118, 1048580, 1, 12, 327684, 10, 13, 393220, 10, 14, 458756, 10, -65549, 327684, 10, -65548, 393220, 10, -65547, 458756, 10, 131044, 327684, 11, 131045, 327684, 11, 131046, 327684, 11, 131047, 327684, 11, 131048, 327684, 11, 131049, 327684, 11, 131050, 327684, 11, 131051, 327684, 11, 131052, 327684, 11, 131053, 327684, 11, 131054, 327684, 11, 131055, 327684, 11, 131056, 327684, 11, 131057, 327684, 11, 131058, 327684, 11, 131059, 327684, 11, 131060, 327684, 11, 131061, 327684, 11, 131062, 327684, 11, 131063, 327684, 11, 131064, 327684, 11, 131065, 327684, 11, 131066, 327684, 11, 131067, 327684, 11, 131068, 327684, 11, 131069, 327684, 11, 131070, 327684, 11, 131071, 327684, 11, 65536, 327684, 11, 65537, 327684, 11, 65538, 327684, 11, 65539, 327684, 11, 65540, 327684, 11, 65541, 327684, 11, 65542, 327684, 11, 65543, 327684, 11, 65544, 327684, 11, 65545, 327684, 11, 65546, 327684, 11, 65547, 327684, 11, 65548, 327684, 11, 65549, 327684, 11, 65550, 327684, 11, 65551, 327684, 11, 65552, 327684, 11, 65553, 327684, 11, 65554, 327684, 11, 65555, 327684, 11, 65556, 327684, 11, 65557, 327684, 11, 65558, 327684, 11, 65559, 327684, 11, 65560, 327684, 11, 65561, 327684, 11, 65562, 327684, 11, 65563, 327684, 11, 65564, 327684, 11, 65565, 327684, 11, 65566, 327684, 11, 65567, 327684, 11, 65568, 327684, 11, 65569, 327684, 11, 65570, 327684, 11, 65571, 327684, 11, 65572, 327684, 11, 65573, 327684, 11, 65574, 327684, 11, 65575, 327684, 11, 65576, 327684, 11)
 layer_3/name = "middle-back2"
 layer_3/z_index = -1
 layer_4/name = "back"
@@ -90,8 +53,11 @@ layer_4/z_index = -2
 layer_5/name = "sparkle"
 layer_5/z_index = 2
 
+[node name="Player" parent="." instance=ExtResource("2_q0lye")]
+position = Vector2(-194, -386)
+
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target", "tilemap")]
-position = Vector2(0, -72)
+position = Vector2(57, 20)
 limit_left = 0
 limit_top = 0
 limit_right = 0
@@ -99,14 +65,14 @@ limit_bottom = 0
 limit_smoothed = true
 position_smoothing_speed = 3.0
 rotation_smoothing_speed = 3.0
-script = SubResource("GDScript_0ufb6")
+script = ExtResource("6_q1bnk")
 follow_target = NodePath("../Player")
 tilemap = NodePath("../TileMap")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
-offset_left = -1312.0
-offset_top = -481.0
-offset_right = 1165.0
-offset_bottom = 437.0
+offset_left = -1199.0
+offset_top = -323.0
+offset_right = 1278.0
+offset_bottom = 595.0
 color = Color(0, 0, 0, 1)
