@@ -73,7 +73,6 @@ destination_level_tag = "gregersoninside"
 destination_door_tag = "shacki2"
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target", "tilemap")]
-position = Vector2(-103, 7)
 limit_left = 100
 limit_top = 100
 limit_right = 100
@@ -85,16 +84,27 @@ script = ExtResource("7_pem1b")
 follow_target = NodePath("../Player")
 tilemap = NodePath("../TileMap")
 
-[node name="Sprite" type="Sprite2D" parent="Camera2D"]
-visible = false
-z_index = -100
-texture = ExtResource("8_vo421")
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(1, 1)
+repeat_times = 2
+limit_begin = Vector2(-100, -100)
+limit_end = Vector2(100, 100)
 
-[node name="Sprite2" type="Sprite2D" parent="Camera2D"]
-visible = false
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Parallax2D"]
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2" type="Sprite2D" parent="Parallax2D/ParallaxLayer"]
 z_index = -205
-position = Vector2(0, -48)
+position = Vector2(158, 119)
 texture = ExtResource("8_aweod")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Parallax2D"]
+motion_scale = Vector2(2, 2)
+
+[node name="Sprite" type="Sprite2D" parent="Parallax2D/ParallaxLayer2"]
+z_index = -100
+position = Vector2(160, 137)
+texture = ExtResource("8_vo421")
 
 [editable path="Doors/Door_shacko"]
 [editable path="Doors/Door_shacko2"]
