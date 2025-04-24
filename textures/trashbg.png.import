@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://daop87t7qnmog"
-path="res://.godot/imported/grotty john.png-f78d5ddcb4e045fdcadd4b535e729794.ctex"
+uid="uid://50u4jfkeibye"
+path="res://.godot/imported/trashbg.png-4a914a53a630e25a4d12c6d7ca990e17.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/grotty john.png"
-dest_files=["res://.godot/imported/grotty john.png-f78d5ddcb4e045fdcadd4b535e729794.ctex"]
+source_file="res://textures/trashbg.png"
+dest_files=["res://.godot/imported/trashbg.png-4a914a53a630e25a4d12c6d7ca990e17.ctex"]
 
 [params]
 

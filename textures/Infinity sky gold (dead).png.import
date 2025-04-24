@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://daop87t7qnmog"
-path="res://.godot/imported/grotty john.png-f78d5ddcb4e045fdcadd4b535e729794.ctex"
+uid="uid://c8gln7weps2tc"
+path="res://.godot/imported/Infinity sky gold (dead).png-eedd24c6820eac50aa7cb12df019d0bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/grotty john.png"
-dest_files=["res://.godot/imported/grotty john.png-f78d5ddcb4e045fdcadd4b535e729794.ctex"]
+source_file="res://textures/Infinity sky gold (dead).png"
+dest_files=["res://.godot/imported/Infinity sky gold (dead).png-eedd24c6820eac50aa7cb12df019d0bc.ctex"]
 
 [params]
 
