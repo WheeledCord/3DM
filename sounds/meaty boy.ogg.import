@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cohxla2b5sq1d"
+path="res://.godot/imported/meaty boy.ogg-a2f9e360df7102acc051eb85804b5d2b.oggvorbisstr"
+
+[deps]
+
+source_file="res://sounds/meaty boy.ogg"
+dest_files=["res://.godot/imported/meaty boy.ogg-a2f9e360df7102acc051eb85804b5d2b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

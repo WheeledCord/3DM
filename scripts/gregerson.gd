@@ -1,6 +1,6 @@
 extends Node2D
 
-var spawn_sound := preload("res://sounds/spawn.wav")
+var spawn_sound := preload("res://sounds/doom.wav")
 func _ready():
 	print("game.tscn loaded")
 	var audio_player = AudioStreamPlayer.new()

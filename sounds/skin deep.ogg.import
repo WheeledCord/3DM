@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bjjk8f3vc61da"
+path="res://.godot/imported/skin deep.ogg-1bc8f943783708a7f90f19c55a9d07d4.oggvorbisstr"
+
+[deps]
+
+source_file="res://sounds/skin deep.ogg"
+dest_files=["res://.godot/imported/skin deep.ogg-1bc8f943783708a7f90f19c55a9d07d4.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -2,6 +2,9 @@ extends Node
 
 const scene_gregerson = preload("res://scenes/gregerson.tscn")
 const scene_gregersoninside = preload("res://scenes/gregersoninside.tscn")
+const scene_cave = preload("res://scenes/cave.tscn")
+const scene_greg2 = preload("res://scenes/greg2.tscn")
+const scene_meat = preload("res://scenes/meat.tscn")
 
 signal on_trigger_player_spawn
 
@@ -15,6 +18,12 @@ func go_to_level(level_tag, destination_tag):
 			scene_to_load = scene_gregerson
 		"gregersoninside":
 			scene_to_load = scene_gregersoninside
+		"cave":
+			scene_to_load = scene_cave
+		"greg2":
+			scene_to_load = scene_greg2
+		"meat":
+			scene_to_load = scene_meat
 
 	if scene_to_load != null:
 		spawn_door_tag = destination_tag

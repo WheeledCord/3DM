@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://c8yav2r83ba06"
-path="res://.godot/imported/blipSelect.wav-610a14d3b05a071b05941d71e442c2c2.sample"
+uid="uid://66aac1nnri8m"
+path="res://.godot/imported/doom.wav-2ca5814d88c3605feb8ea9a5e9a670a7.sample"
 
 [deps]
 
-source_file="res://sounds/blipSelect.wav"
-dest_files=["res://.godot/imported/blipSelect.wav-610a14d3b05a071b05941d71e442c2c2.sample"]
+source_file="res://sounds/doom.wav"
+dest_files=["res://.godot/imported/doom.wav-2ca5814d88c3605feb8ea9a5e9a670a7.sample"]
 
 [params]
 

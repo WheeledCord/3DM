@@ -1,0 +1,131 @@
+[gd_scene load_steps=7 format=3 uid="uid://b44nx5q2l7mc8"]
+
+[ext_resource type="Script" uid="uid://dblnlemoi8uox" path="res://scripts/spawnmanager.gd" id="1_6sqbx"]
+[ext_resource type="AudioStream" uid="uid://dnxrjv1c76nqv" path="res://sounds/wise hopes of a trashman.mp3" id="2_ip074"]
+[ext_resource type="PackedScene" uid="uid://mre0ooqiyoe2" path="res://scenes/door.tscn" id="3_cameo"]
+[ext_resource type="TileSet" uid="uid://doy3xicswa1ad" path="res://textures/tileset.tres" id="4_uonky"]
+[ext_resource type="PackedScene" uid="uid://de3ceg246pukp" path="res://scenes/player.tscn" id="5_aises"]
+[ext_resource type="Script" uid="uid://meutufrjh584" path="res://scripts/camera_2d.gd" id="6_c3r8b"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_6sqbx")
+
+[node name="Doors" type="Node" parent="."]
+
+[node name="Door_cave" parent="Doors" instance=ExtResource("3_cameo")]
+position = Vector2(929, 86)
+destination_level_tag = "gregerson"
+destination_door_tag = "cavei"
+
+[node name="Door_cave2" parent="Doors" instance=ExtResource("3_cameo")]
+position = Vector2(1105, 86)
+destination_level_tag = "greg2"
+destination_door_tag = "greg2"
+
+[node name="Door_cave3" parent="Doors" instance=ExtResource("3_cameo")]
+position = Vector2(1334, 54)
+destination_level_tag = "meat"
+destination_door_tag = "meat"
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(0, 96)
+tile_set = ExtResource("4_uonky")
+format = 2
+layer_0/name = "front"
+layer_0/z_index = 6
+layer_0/tile_data = PackedInt32Array(-131009, 327684, 20)
+layer_1/name = "frontbehindplayer"
+layer_1/y_sort_origin = 1
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array(-131015, 1441796, 17, -65479, 1441796, 18, -131014, 1507332, 17, -65478, 1507332, 18, -131004, 1441796, 17, -65468, 1441796, 18, -131003, 1507332, 17, -65467, 1507332, 18)
+layer_2/name = "middle"
+layer_2/tile_data = PackedInt32Array(56, 1572868, 19, 65592, 1572868, 20, 57, 1572868, 19, 65593, 1572868, 20, 65594, 1572868, 20, 58, 1572868, 19, 59, 1572868, 19, 60, 1572868, 19, 61, 1572868, 19, 62, 1572868, 19, 63, 1572868, 19, 64, 1572868, 19, 65, 1572868, 19, 66, 1572868, 19, 67, 1572868, 19, 68, 1572868, 19, 69, 1572868, 19, 70, 1572868, 19, 65595, 1572868, 20, 65596, 1572868, 20, 65597, 1572868, 20, 65598, 1572868, 20, 65599, 1572868, 20, 65600, 1572868, 20, 65601, 1572868, 20, 65602, 1572868, 20, 65603, 1572868, 20, 65604, 1572868, 20, 65605, 1572868, 20, 65606, 1572868, 20, -65480, 1572868, 20, -65479, 1572868, 20, -65478, 1572868, 20, -65477, 1572868, 20, -65476, 1572868, 20, -65475, 1572868, 20, -65474, 1572868, 20, -65473, 1572868, 20, -65472, 1572868, 20, -65471, 1572868, 20, -65470, 1572868, 20, -65469, 1572868, 20, -65468, 1572868, 20, -65467, 1572868, 20, -65466, 1572868, 20, -131002, 1572868, 20, -131003, 1572868, 20, -131004, 1572868, 20, -131005, 1572868, 20, -131006, 1572868, 20, -131007, 1572868, 20, -131008, 1572868, 20, -131009, 1572868, 20, -131010, 1572868, 20, -131011, 1572868, 20, -131012, 1572868, 20, -131013, 1572868, 20, -131014, 1572868, 20, -131015, 1572868, 20, -131016, 1572868, 20, -196552, 1572868, 20, -196551, 1572868, 20, -196550, 1572868, 20, -196549, 1572868, 20, -196548, 1572868, 20, -196547, 1572868, 20, -196546, 1572868, 20, -196545, 1572868, 20, -196544, 1572868, 20, -196543, 1572868, 20, -196542, 1572868, 20, -196541, 1572868, 20, -196540, 1572868, 20, -196539, 1572868, 20, -196538, 1572868, 20, -262088, 1572868, 20, -262087, 1572868, 20, -262086, 1572868, 20, -262085, 1572868, 20, -262084, 1572868, 20, -262083, 1572868, 20, -262082, 1572868, 20, -262081, 1572868, 20, -262080, 1572868, 20, -262079, 1572868, 20, -262078, 1572868, 20, -262077, 1572868, 20, -262076, 1572868, 20, -262075, 1572868, 20, -262074, 1572868, 20, -327624, 1572868, 20, -327623, 1572868, 20, -327622, 1572868, 20, -327621, 1572868, 20, -327620, 1572868, 20, -327619, 1572868, 20, -327618, 1572868, 20, -327617, 1572868, 20, -327616, 1572868, 20, -327615, 1572868, 20, -327614, 1572868, 20, -327613, 1572868, 20, -327612, 1572868, 20, -327611, 1572868, 20, -327610, 1572868, 20, -327625, 327684, 11, -262089, 327684, 11, -196553, 327684, 11, -131017, 327684, 11, -65481, 327684, 11, 55, 327684, 11, 65591, 327684, 11, -327609, 327684, 11, -131001, 327684, 11, -65465, 327684, 11, 71, 327684, 11, 65607, 327684, 11, 131143, 327684, 11, 131127, 327684, 11, 131128, 327684, 11, 131129, 327684, 11, 131130, 327684, 11, 131131, 327684, 11, 131132, 327684, 11, 131133, 327684, 11, 131134, 327684, 11, 131135, 327684, 11, 131136, 327684, 11, 131137, 327684, 11, 131138, 327684, 11, 131139, 327684, 11, 131140, 327684, 11, 131141, 327684, 11, 131142, 327684, 11, -393146, 327684, 11, -393147, 327684, 11, -393148, 327684, 11, -393149, 327684, 11, -393150, 327684, 11, -393151, 327684, 11, -393152, 327684, 11, -393153, 327684, 11, -393154, 327684, 11, -393155, 327684, 11, -393156, 327684, 11, -393157, 327684, 11, -393158, 327684, 11, -393159, 327684, 11, -393160, 327684, 11, -393161, 327684, 11, -393145, 327684, 11)
+layer_3/name = "middle-back2"
+layer_3/z_index = -1
+layer_4/name = "back"
+layer_4/z_index = -2
+layer_5/name = "sparkle"
+layer_5/z_index = 2
+
+[node name="TileMap2" type="TileMap" parent="."]
+position = Vector2(0, 96)
+tile_set = ExtResource("4_uonky")
+format = 2
+layer_0/name = "front"
+layer_0/z_index = 6
+layer_0/tile_data = PackedInt32Array(-393132, 327684, 11, -327596, 327684, 11, -262060, 327684, 11, -196524, 327684, 11)
+layer_1/name = "frontbehindplayer"
+layer_1/y_sort_origin = 1
+layer_1/z_index = 1
+layer_2/name = "middle"
+layer_2/tile_data = PackedInt32Array(-327609, 327684, 11, -131001, 327684, 11, -393145, 327684, 11, -131000, 327684, 11, -130999, 327684, 11, -130998, 327684, 11, -130997, 327684, 11, -130996, 327684, 11, -130995, 327684, 11, -130994, 327684, 11, -130993, 327684, 11, -130992, 327684, 11, -130991, 327684, 11, -130990, 327684, 11, -130989, 327684, 11, -130988, 327684, 11, -458681, 327684, 11, -458680, 327684, 11, -458679, 327684, 11, -458678, 327684, 11, -458677, 327684, 11, -458676, 327684, 11, -458675, 327684, 11, -458674, 327684, 11, -458673, 327684, 11, -458672, 327684, 11, -458671, 327684, 11, -458670, 327684, 11, -458669, 327684, 11, -458668, 327684, 11)
+layer_3/name = "middle-back2"
+layer_3/z_index = -1
+layer_4/name = "back"
+layer_4/z_index = -2
+layer_5/name = "sparkle"
+layer_5/z_index = 2
+
+[node name="Player" parent="." instance=ExtResource("5_aises")]
+position = Vector2(-194, -386)
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target", "tilemap")]
+position = Vector2(57, 20)
+limit_left = 0
+limit_top = 0
+limit_right = 0
+limit_bottom = 0
+limit_smoothed = true
+position_smoothing_speed = 3.0
+rotation_smoothing_speed = 3.0
+script = ExtResource("6_c3r8b")
+follow_target = NodePath("../Player")
+tilemap = NodePath("../TileMap")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -1199.0
+offset_top = -323.0
+offset_right = 3191.0
+offset_bottom = 595.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+z_index = 10
+offset_left = 894.0
+offset_top = 120.0
+offset_right = 1159.0
+offset_bottom = 215.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+z_index = 10
+offset_left = 884.0
+offset_top = -70.0
+offset_right = 1149.0
+offset_bottom = 25.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+z_index = 10
+offset_left = 1136.0
+offset_top = -75.0
+offset_right = 1402.0
+offset_bottom = 217.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="."]
+z_index = 4096
+offset_left = -1167.0
+offset_top = -337.0
+offset_right = 3223.0
+offset_bottom = 581.0
+color = Color(0, 0, 0, 0.192157)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-74, 0)
+stream = ExtResource("2_ip074")
+volume_db = -10.0
+pitch_scale = 0.8
+autoplay = true
+max_distance = 20000.0

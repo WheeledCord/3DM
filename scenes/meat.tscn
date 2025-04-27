@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://cth6sdjg5blir"]
+
+[ext_resource type="TileSet" uid="uid://doy3xicswa1ad" path="res://textures/tileset.tres" id="1_omtcd"]
+[ext_resource type="PackedScene" uid="uid://mre0ooqiyoe2" path="res://scenes/door.tscn" id="2_5xyno"]
+[ext_resource type="PackedScene" uid="uid://de3ceg246pukp" path="res://scenes/player.tscn" id="3_df1yr"]
+[ext_resource type="Script" uid="uid://meutufrjh584" path="res://scripts/camera_2d.gd" id="4_oo30y"]
+[ext_resource type="AudioStream" uid="uid://cohxla2b5sq1d" path="res://sounds/meaty boy.ogg" id="5_oo30y"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(0, 96)
+tile_set = ExtResource("1_omtcd")
+format = 2
+layer_0/name = "front"
+layer_0/z_index = 6
+layer_0/tile_data = PackedInt32Array(56, 262148, 12, 57, 327684, 12, 58, 393220, 12, 59, 458756, 12, 60, 524292, 12, 62, 262148, 12, 63, 327684, 12, 64, 393220, 12, 65, 458756, 12, 66, 524292, 12, 70, 458756, 12, 69, 393220, 12, 67, 262148, 12, 68, 327684, 12, -65480, 458756, 12, -65479, 524292, 12, -65466, 262148, 12)
+layer_1/name = "frontbehindplayer"
+layer_1/y_sort_origin = 1
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array(-65477, 1179652, 7, -65476, 1245188, 7, -65475, 1310724, 7, -131013, 1179652, 6, -131012, 1245188, 6, -131011, 1310724, 6, -65470, 1507332, 6, -65469, 1572868, 6, -65468, 1638404, 6, -131009, 1572868, 17, -65473, 1572868, 18, -131008, 1638404, 17, -65472, 1638404, 18, 58, 262148, 12, 59, 327684, 12, 60, 393220, 12, 61, 458756, 12, 62, 524292, 12, 64, 262148, 12, 65, 327684, 12, 66, 393220, 12, 67, 458756, 12, 68, 524292, 12, 56, 458756, 12)
+layer_2/name = "middle"
+layer_2/tile_data = PackedInt32Array(-65477, 1507332, 3, -65476, 1572868, 3, -65475, 1572868, 3, -65474, 1638404, 3, -65473, 1507332, 1, -65472, 1507332, 1, -65471, 1441796, 3, -65470, 1507332, 3, -65469, 1572868, 3, -65468, 1638404, 3, -65467, 1572868, 2, -65466, 1441796, 3, -131002, 1638404, 2, -131003, 1507332, 1, -131004, 1638404, 2, -131005, 1572868, 2, -131006, 1507332, 2, -131007, 1441796, 2, -131008, 1507332, 1, -131009, 1507332, 1, -131010, 1638404, 2, -131011, 1572868, 2, -131012, 1572868, 2, -131013, 1507332, 2, -131014, 1441796, 2, -131015, 1572868, 2, -131016, 1638404, 2, -196552, 1507332, 1, -196551, 1507332, 1, -196550, 1441796, 1, -196549, 1507332, 1, -196548, 1572868, 1, -196547, 1638404, 1, -196546, 1507332, 1, -196545, 1507332, 1, -196544, 1507332, 1, -196543, 1507332, 1, -196542, 1507332, 1, -196541, 1507332, 1, -196540, 1507332, 1, -196539, 1507332, 1, -196538, 1507332, 1, -327624, 327684, 11, -327623, 327684, 11, -327622, 327684, 11, -327621, 327684, 11, -327620, 327684, 11, -327619, 327684, 11, -327618, 327684, 11, -327617, 327684, 11, -327616, 327684, 11, -327615, 327684, 11, -327614, 327684, 11, -327613, 327684, 11, -327612, 327684, 11, -327611, 327684, 11, -327610, 327684, 11, -327625, 327684, 11, -262089, 327684, 11, -196553, 327684, 11, -131017, 327684, 11, -65481, 327684, 11, -327609, 327684, 11, -131001, 327684, 11, -65465, 327684, 11, -65478, 1441796, 3, -65479, 1572868, 3, 55, 327684, 11, 56, 1507332, 4, 57, 1507332, 4, 58, 1507332, 4, 59, 1507332, 4, 60, 1507332, 4, 61, 1507332, 4, 62, 1507332, 4, 63, 1507332, 4, 64, 1507332, 4, 65, 1507332, 4, 66, 1507332, 4, 67, 1507332, 4, 68, 1507332, 4, 69, 1507332, 4, 70, 1507332, 4, 71, 327684, 11, -262073, 327684, 11, -196537, 327684, 11, -65480, 1507332, 3, -262088, 327684, 11, -262087, 327684, 11, -262086, 327684, 11, -262085, 327684, 11, -262084, 327684, 11, -262083, 327684, 11, -262082, 327684, 11, -262081, 327684, 11, -262080, 327684, 11, -262079, 327684, 11, -262078, 327684, 11, -262077, 327684, 11, -262076, 327684, 11, -262075, 327684, 11, -262074, 327684, 11)
+layer_3/name = "middle-back2"
+layer_3/z_index = -1
+layer_4/name = "back"
+layer_4/z_index = -2
+layer_5/name = "sparkle"
+layer_5/z_index = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_left = -1199.0
+offset_top = -323.0
+offset_right = 3191.0
+offset_bottom = 595.0
+color = Color(0, 0, 0, 1)
+
+[node name="Door_meat" parent="." instance=ExtResource("2_5xyno")]
+position = Vector2(1024, 86)
+destination_level_tag = "cave"
+destination_door_tag = "cave3"
+
+[node name="Player" parent="." instance=ExtResource("3_df1yr")]
+position = Vector2(1023, 90)
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target", "tilemap")]
+position = Vector2(57, 20)
+limit_left = 0
+limit_top = 0
+limit_right = 0
+limit_bottom = 0
+limit_smoothed = true
+position_smoothing_speed = 3.0
+rotation_smoothing_speed = 3.0
+script = ExtResource("4_oo30y")
+follow_target = NodePath("../Player")
+tilemap = NodePath("../TileMap")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-74, 0)
+stream = ExtResource("5_oo30y")
+volume_db = -8.065
+autoplay = true
+max_distance = 20000.0
+parameters/looping = true

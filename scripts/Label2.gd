@@ -2,7 +2,7 @@ extends Label
 
 var target_word := "Percy"
 var current_word := ""
-var blip_sound := preload("res://sounds/blipSelect.wav")  # Preload the sound
+var blip_sound := preload("res://sounds/select.wav")  # Preload the sound
 
 var audio_player: AudioStreamPlayer
 
