@@ -37,7 +37,7 @@ layer_5/z_index = 2
 
 [node name="Player" parent="." instance=ExtResource("3_cjhtu")]
 z_index = 3
-position = Vector2(-160, 22)
+position = Vector2(-160, 54)
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(611, -142)

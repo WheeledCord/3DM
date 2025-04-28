@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 const SPEED = 150.0
+const RIGHT_SPEED_FACTOR = 0.9  # <— slows rightward movement to 85% of normal
 const JUMP_VELOCITY = -350.0
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 2.0
@@ -17,20 +18,18 @@ func _on_spawn(spawn_position: Vector2, direction: String) -> void:
 
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
-	if _try_punch(): return
+	if _try_punch():
+		return
+
 	_handle_jump()
 	_handle_horizontal()
 	_reset_jump_state()
-	
-	# move_and_slide() reads & writes `velocity` automatically
+
 	move_and_slide()
-	
-	# ←―――――――――――――――――――――――――――――――
-	# PIXEL‐SNAP: round your final position
-	global_position = global_position.round()
-	# You can also do:
-	# position = position.snapped(Vector2.ONE)
-	# ―――――――――――――――――――――――――――――――――
+
+	# still snapping to whole pixels
+	global_position = global_position.snapped(Vector2.ONE)
+
 
 func _apply_gravity(delta: float) -> void:
 	if not is_on_floor():
@@ -59,9 +58,13 @@ func _handle_jump() -> void:
 func _handle_horizontal() -> void:
 	if is_punching:
 		return
-	var dir := Input.get_axis("left", "right")  # −1, 0, or 1
+	var dir := Input.get_axis("left", "right")
 	if dir != 0:
-		velocity.x = dir * SPEED
+		# apply right‐side slowdown as a band‐aid
+		var effective_speed = SPEED
+		if dir > 0:
+			effective_speed *= RIGHT_SPEED_FACTOR
+		velocity.x = dir * effective_speed
 		$AnimatedSprite2D.flip_h = dir < 0
 		if is_on_floor() and not is_jumping:
 			$AnimatedSprite2D.play("walk")
