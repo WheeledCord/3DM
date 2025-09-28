@@ -1,9 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://7kr3tdqr44lh"]
 
-[ext_resource type="FontFile" uid="uid://vor6qr5mrgxy" path="res://textures/dan-ball.ttf" id="1_0dbro"]
+[ext_resource type="FontFile" uid="uid://vor6qr5mrgxy" path="res://textures/font.ttf" id="1_0dbro"]
 [ext_resource type="Script" uid="uid://bxsqycrw44h5p" path="res://scripts/Label2.gd" id="2_e1lff"]
 
 [node name="Node2D" type="Node2D"]
+position = Vector2(2, 0)
 
 [node name="Label" type="Label" parent="."]
 offset_left = 70.0

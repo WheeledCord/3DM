@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3yvo2646nerw"]
+[gd_scene load_steps=14 format=3 uid="uid://b3yvo2646nerw"]
 
 [ext_resource type="Script" uid="uid://q8kj8n6fyrdb" path="res://scripts/gregerson.gd" id="1_73tng"]
 [ext_resource type="TileSet" uid="uid://doy3xicswa1ad" path="res://textures/tileset.tres" id="2_u7v4p"]
@@ -7,8 +7,18 @@
 [ext_resource type="AudioStream" uid="uid://dnxrjv1c76nqv" path="res://sounds/wise hopes of a trashman.mp3" id="6_65p5u"]
 [ext_resource type="PackedScene" uid="uid://mre0ooqiyoe2" path="res://scenes/door.tscn" id="7_01dnn"]
 [ext_resource type="Script" uid="uid://meutufrjh584" path="res://scripts/camera_2d.gd" id="7_pem1b"]
-[ext_resource type="Texture2D" uid="uid://50u4jfkeibye" path="res://textures/trashbg.png" id="8_83ugq"]
+[ext_resource type="Texture2D" uid="uid://cx8urwwwmdshe" path="res://textures/cloudtest.png" id="8_pem1b"]
+[ext_resource type="Script" uid="uid://xefy2qpfx8kb" path="res://scenes/bg.gd" id="8_xxctt"]
+[ext_resource type="Texture2D" uid="uid://dsf5viqyemxlc" path="res://textures/backgroundtest.png" id="9_83ugq"]
 [ext_resource type="Texture2D" uid="uid://8vq02lth30sg" path="res://textures/trashplain.png" id="10_pem1b"]
+[ext_resource type="FontFile" uid="uid://bhybo1bgsu2jq" path="res://textures/PixelatedEleganceRegular-ovyAA.ttf" id="12_b7edw"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b7edw"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -200, 0)
+emission_shape = 3
+emission_box_extents = Vector3(350, 1, 1)
+gravity = Vector3(0, 3000, 0)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_73tng")
@@ -39,18 +49,14 @@ layer_5/z_index = 2
 z_index = 3
 position = Vector2(-160, 54)
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(611, -142)
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+position = Vector2(-62, 28)
 amount = 50
 texture = ExtResource("5_bctkq")
-speed_scale = 1.4
 randomness = 0.17
-emission_shape = 3
-emission_rect_extents = Vector2(1400, 1)
-direction = Vector2(1, 100)
-gravity = Vector2(200, 980)
-scale_amount_max = 2.0
-color = Color(1, 1, 1, 0.65098)
+visibility_rect = Rect2(-350, -200, 2200, 200)
+process_material = SubResource("ParticleProcessMaterial_b7edw")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(-80, 0)
@@ -62,12 +68,12 @@ parameters/looping = true
 [node name="Doors" type="Node" parent="."]
 
 [node name="Door_shacko" parent="Doors" instance=ExtResource("7_01dnn")]
-position = Vector2(-185, 54)
+position = Vector2(-183, 54)
 destination_level_tag = "gregersoninside"
 destination_door_tag = "shacki"
 
 [node name="Door_inno" parent="Doors" instance=ExtResource("7_01dnn")]
-position = Vector2(439, 86)
+position = Vector2(441, 102)
 destination_level_tag = "gregersoninside"
 destination_door_tag = "inni"
 
@@ -77,48 +83,74 @@ destination_level_tag = "cave"
 destination_door_tag = "cave"
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target", "tilemap")]
+position = Vector2(-236, -68)
 limit_left = 100
 limit_top = 100
 limit_right = 100
 limit_bottom = 100
-limit_smoothed = true
 position_smoothing_speed = 3.0
 rotation_smoothing_speed = 3.0
 script = ExtResource("7_pem1b")
-follow_target = NodePath("../Player")
+follow_target = NodePath("../Doors/Door_shacko/CollisionShape2D")
 tilemap = NodePath("../TileMap")
 
-[node name="Parallax2D" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0.2, 0)
-scroll_offset = Vector2(-311, 0)
-repeat_size = Vector2(320, 1)
-repeat_times = 2
-limit_begin = Vector2(-100, -100)
-limit_end = Vector2(100, 100)
+[node name="bg2" type="ParallaxBackground" parent="."]
+layer = -99
+scroll_offset = Vector2(10, 0)
+scroll_ignore_camera_zoom = true
+script = ExtResource("8_xxctt")
+base_speed = Vector2(10, 0)
 
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="Parallax2D"]
-position = Vector2(-58, 36)
-motion_scale = Vector2(-0.5, -0.05)
-
-[node name="Sprite" type="Sprite2D" parent="Parallax2D/ParallaxLayer3"]
-z_index = -100
-position = Vector2(218, 83)
-texture = ExtResource("10_pem1b")
-
-[node name="Parallax2D2" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0, 0)
-scroll_offset = Vector2(-311, 0)
-repeat_size = Vector2(320, 1)
-repeat_times = 2
-limit_begin = Vector2(-100, -100)
-limit_end = Vector2(100, 100)
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Parallax2D2"]
+[node name="Clouds" type="ParallaxLayer" parent="bg2"]
 motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(320, 0)
 
-[node name="Sprite2" type="Sprite2D" parent="Parallax2D2/ParallaxLayer"]
-z_index = -205
-position = Vector2(158, 119)
-texture = ExtResource("8_83ugq")
+[node name="CloudSprite" type="Sprite2D" parent="bg2/Clouds"]
+z_index = 100
+position = Vector2(-58, 37)
+texture = ExtResource("8_pem1b")
+centered = false
+offset = Vector2(58, -32)
+
+[node name="bg" type="ParallaxBackground" parent="."]
+
+[node name="sky" type="ParallaxLayer" parent="bg"]
+motion_scale = Vector2(0.25, -0.05)
+motion_mirroring = Vector2(320, 0)
+
+[node name="SkySprite" type="Sprite2D" parent="bg/sky"]
+z_index = -101
+position = Vector2(-58, 5)
+texture = ExtResource("9_83ugq")
+centered = false
+offset = Vector2(58, -32)
+
+[node name="Trash" type="ParallaxLayer" parent="bg"]
+motion_scale = Vector2(0.25, -0.05)
+motion_mirroring = Vector2(320, 0)
+
+[node name="TrashSprite" type="Sprite2D" parent="bg/Trash"]
+z_index = -100
+position = Vector2(-58, 37)
+texture = ExtResource("10_pem1b")
+centered = false
+offset = Vector2(58, -32)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+z_index = 10
+offset_top = 210.0
+offset_right = 320.0
+offset_bottom = 240.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("12_b7edw")
+theme_override_font_sizes/font_size = 9
+text = "test dialogue"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [editable path="Doors/Door_shacko"]

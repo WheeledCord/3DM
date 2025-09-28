@@ -1,10 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnbnn8bxot6rv"]
+[gd_scene load_steps=5 format=3 uid="uid://cnbnn8bxot6rv"]
 
 [ext_resource type="PackedScene" uid="uid://de3ceg246pukp" path="res://scenes/player.tscn" id="1_ryivr"]
 [ext_resource type="PackedScene" uid="uid://mre0ooqiyoe2" path="res://scenes/door.tscn" id="2_8twik"]
 [ext_resource type="Script" uid="uid://meutufrjh584" path="res://scripts/camera_2d.gd" id="2_rulkh"]
-[ext_resource type="Texture2D" uid="uid://8vq02lth30sg" path="res://textures/trashplain.png" id="3_hciik"]
-[ext_resource type="Texture2D" uid="uid://50u4jfkeibye" path="res://textures/trashbg.png" id="4_fyd6w"]
 [ext_resource type="TileSet" uid="uid://doy3xicswa1ad" path="res://textures/tileset.tres" id="5_mnfm6"]
 
 [node name="Node2D" type="Node2D"]
@@ -13,7 +11,7 @@
 z_index = 3
 position = Vector2(1249, 102)
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target", "tilemap")]
+[node name="Camera2D" type="Camera2D" parent="."]
 limit_left = 100
 limit_top = 100
 limit_right = 100
@@ -22,41 +20,6 @@ limit_smoothed = true
 position_smoothing_speed = 3.0
 rotation_smoothing_speed = 3.0
 script = ExtResource("2_rulkh")
-follow_target = NodePath("../Player")
-tilemap = NodePath("../TileMap")
-
-[node name="Parallax2D" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0.2, 0)
-scroll_offset = Vector2(-311, 0)
-repeat_size = Vector2(320, 1)
-repeat_times = 2
-limit_begin = Vector2(-100, -100)
-limit_end = Vector2(100, 100)
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="Parallax2D"]
-position = Vector2(-58, 36)
-motion_scale = Vector2(-0.5, -0.05)
-
-[node name="Sprite" type="Sprite2D" parent="Parallax2D/ParallaxLayer3"]
-z_index = -100
-position = Vector2(218, 83)
-texture = ExtResource("3_hciik")
-
-[node name="Parallax2D2" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0, 0)
-scroll_offset = Vector2(-311, 0)
-repeat_size = Vector2(320, 1)
-repeat_times = 2
-limit_begin = Vector2(-100, -100)
-limit_end = Vector2(100, 100)
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Parallax2D2"]
-motion_scale = Vector2(0, 0)
-
-[node name="Sprite2" type="Sprite2D" parent="Parallax2D2/ParallaxLayer"]
-z_index = -205
-position = Vector2(158, 119)
-texture = ExtResource("4_fyd6w")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(0, 96)

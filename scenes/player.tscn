@@ -1,11 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://de3ceg246pukp"]
+[gd_scene load_steps=18 format=3 uid="uid://de3ceg246pukp"]
 
 [ext_resource type="Script" uid="uid://bpaod7kydmnci" path="res://scripts/player.gd" id="1_3jnet"]
 [ext_resource type="Texture2D" uid="uid://bj66wc3erf82s" path="res://textures/fat man.png" id="1_com48"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ji2es"]
 radius = 7.0
-height = 24.0
+height = 26.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ic5q"]
 atlas = ExtResource("1_com48")
@@ -14,6 +14,10 @@ region = Rect2(96, 64, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_t0w55"]
 atlas = ExtResource("1_com48")
 region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
+atlas = ExtResource("1_com48")
+region = Rect2(32, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kqqbq"]
 atlas = ExtResource("1_com48")
@@ -70,6 +74,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_g2els")
+}],
+"loop": false,
+"name": &"fall",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_kqqbq")
 }],
 "loop": true,
@@ -80,9 +92,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dds0o")
 }],
-"loop": false,
+"loop": true,
 "name": &"jump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -130,7 +142,7 @@ script = ExtResource("1_3jnet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 2
-position = Vector2(0, -2)
+position = Vector2(0, -3)
 shape = SubResource("CapsuleShape2D_ji2es")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
