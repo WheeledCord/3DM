@@ -7,6 +7,8 @@ const JUMP_VELOCITY = -350.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") * 2.0
 var is_jumping := false
 var is_punching := false
+var is_knocked_back := false
+var knockback_timer := 0.0
 
 func _ready():
 	$AnimatedSprite2D.connect("animation_finished", Callable(self, "_on_animation_finished"))
@@ -15,8 +17,21 @@ func _ready():
 func _on_spawn(spawn_position: Vector2, direction: String) -> void:
 	global_position = spawn_position.round()
 
+func apply_knockback(kb_velocity: Vector2):
+	velocity = kb_velocity
+	is_knocked_back = true
+	knockback_timer = 0.3
+
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
+	
+	if is_knocked_back:
+		knockback_timer -= delta
+		if knockback_timer <= 0:
+			is_knocked_back = false
+		move_and_slide()
+		return
+	
 	if _try_punch():
 		return
 	_handle_jump()
@@ -49,7 +64,6 @@ func _handle_horizontal_pixel_perfect(delta: float) -> void:
 		if dir > 0:
 			effective_speed *= RIGHT_SPEED_FACTOR
 		
-		# Round the final speed to ensure whole pixel movement
 		velocity.x = round(dir * effective_speed)
 		
 		$AnimatedSprite2D.flip_h = dir < 0

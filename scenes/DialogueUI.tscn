@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd74h3mv6qxkh"]
+
+[ext_resource type="Script" uid="uid://w2uxwstokv0g" path="res://scripts/dialogue.gd" id="1_7d2kc"]
+[ext_resource type="FontFile" uid="uid://vor6qr5mrgxy" path="res://textures/font.ttf" id="2_7de8d"]
+[ext_resource type="FontFile" uid="uid://bhybo1bgsu2jq" path="res://textures/PixelatedEleganceRegular-ovyAA.ttf" id="2_rmr67"]
+
+[node name="DialogueUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_7d2kc")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 321.0
+offset_bottom = 241.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 316.0
+offset_bottom = 236.0
+
+[node name="NameLabel" type="Label" parent="Panel/VBox"]
+z_index = 10
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2_7de8d")
+theme_override_font_sizes/font_size = 9
+text = "JOHN SMITH,, AHAHA GET IT. HES A SMITH"
+autowrap_mode = 3
+
+[node name="DialogueText" type="Label" parent="Panel/VBox"]
+z_index = 10
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2_rmr67")
+theme_override_font_sizes/font_size = 9
+text = "lorium ispium type shit wowowowo this is dialogue hi hihi
+sadasd
+as
+d
+as
+da
+sd
+a
+sd
+as
+d
+dasdasdasdasdasd
+asd
+as
+d"
+autowrap_mode = 3
+
+[node name="ChoicesContainer" type="VBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_rmr67")
+theme_override_font_sizes/font_size = 9
+text = "Continue
+"

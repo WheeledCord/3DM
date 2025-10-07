@@ -42,20 +42,13 @@ destination_level_tag = "cave"
 destination_door_tag = "cave3"
 
 [node name="Player" parent="." instance=ExtResource("3_df1yr")]
-position = Vector2(1023, 90)
+position = Vector2(1025, 86)
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target", "tilemap")]
-position = Vector2(57, 20)
-limit_left = 0
-limit_top = 0
-limit_right = 0
-limit_bottom = 0
-limit_smoothed = true
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1015, 83)
 position_smoothing_speed = 3.0
 rotation_smoothing_speed = 3.0
 script = ExtResource("4_oo30y")
-follow_target = NodePath("../Player")
-tilemap = NodePath("../TileMap")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(-74, 0)

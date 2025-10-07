@@ -1,0 +1,173 @@
+{
+  "start": {
+	"character": "Roy Rube",
+	"text": "Don't know you. What you want? I'm busy.",
+	"choices": [
+	  {
+		"text": "I need weapon work done.",
+		"next": "weapon_work"
+	  },
+	  {
+		"text": "Got anything for sale?",
+		"next": "anything_sale"
+	  },
+	  {
+		"text": "Just looking around.",
+		"next": "just_looking"
+	  }
+	]
+  },
+
+  "weapon_work": {
+	"character": "Roy Rube",
+	"text": "Yeah I can do that. I'm real good at it. Only guy here who knows how to work metal proper. This place got bad tools but I make it work.",
+	"choices": [
+	  {
+		"text": "What kind of work can you do?",
+		"next": "what_work"
+	  },
+	  {
+		"text": "How much?",
+		"next": "how_much"
+	  },
+	  {
+		"text": "Are you actually good at this?",
+		"next": "actually_good"
+	  }
+	]
+  },
+
+  "what_work": {
+	"character": "Roy Rube",
+	"text": "I hit it with hammer. Make it better. Sometimes it break but that ain't my fault. It's cause everything here is garbage. I do good work.",
+	"choices": [
+	  {
+		"text": "It breaks?",
+		"next": "it_breaks"
+	  },
+	  {
+		"text": "Maybe you're doing something wrong.",
+		"next": "doing_wrong"
+	  },
+	  {
+		"text": "Just work on my stuff.",
+		"next": "work_on_stuff"
+	  }
+	]
+  },
+
+  "how_much": {
+	"character": "Roy Rube",
+	"text": "Costs cigarettes. Good work costs good money. You want cheap go somewhere else. Oh wait there ain't nowhere else.",
+	"choices": [
+	  {
+		"text": "How many cigarettes?",
+		"next": "how_many_cigs"
+	  },
+	  {
+		"text": "That's stupid.",
+		"next": "thats_stupid"
+	  }
+	]
+  },
+
+  "actually_good": {
+	"character": "Roy Rube",
+	"text": "Course I'm good. Been doing this long time. I know what I'm doing. Problem is this place. Tools is bad. Metal is bad. Everything bad except me.",
+	"choices": [
+	  {
+		"text": "If you say so.",
+		"next": "if_you_say"
+	  },
+	  {
+		"text": "Sounds like excuses.",
+		"next": "sounds_excuses"
+	  }
+	]
+  },
+
+  "it_breaks": {
+	"character": "Roy Rube",
+	"text": "Yeah sometimes it break. But that ain't cause I'm bad. It's cause this place is cursed or something. Metal don't want to stay fixed here.",
+	"choices": [
+	  {
+		"text": "The place is cursed?",
+		"next": "place_cursed"
+	  },
+	  {
+		"text": "Maybe you just suck.",
+		"next": "maybe_suck"
+	  }
+	]
+  },
+
+  "doing_wrong": {
+	"character": "Roy Rube",
+	"text": "I ain't doing nothing wrong. I hit metal. Metal get better. That's how it work. If it don't work then something else is wrong. Not me.",
+	"choices": [
+	  {
+		"text": "That's not how blacksmithing works.",
+		"next": "not_how_works"
+	  },
+	  {
+		"text": "Whatever, just do it.",
+		"next": "whatever_do_it"
+	  }
+	]
+  },
+
+  "work_on_stuff": {
+	"character": "Roy Rube",
+	"text": "Yeah I'll work on it. Do real good job. If it break after that ain't my problem."
+  },
+
+  "how_many_cigs": {
+	"character": "Roy Rube",
+	"text": "Depends what you want. But it's gonna be fair price cause I'm fair guy. Only good blacksmith around here."
+  },
+
+  "thats_stupid": {
+	"character": "Roy Rube",
+	"text": "Stupid? You stupid. I'm only guy who can fix your stuff. You don't like it go cry somewhere else."
+  },
+
+  "if_you_say": {
+	"character": "Roy Rube",
+	"text": "I do say. And I'm right. Always right about this stuff."
+  },
+
+  "sounds_excuses": {
+	"character": "Roy Rube",
+	"text": "Ain't excuses. Is truth. I'm good at this. Everything else around here is garbage."
+  },
+
+  "place_cursed": {
+	"character": "Roy Rube",
+	"text": "Yeah maybe. Or maybe Gregerson put bad luck on everything. All I know is I do good work and things still break. So it ain't me."
+  },
+
+  "maybe_suck": {
+	"character": "Roy Rube",
+	"text": "I don't suck. You suck. I'm best blacksmith this place ever had. Probably ever gonna have too."
+  },
+
+  "not_how_works": {
+	"character": "Roy Rube",
+	"text": "That's exactly how it work. You hit metal. Metal get better. That's blacksmithing. I know cause I'm blacksmith."
+  },
+
+  "whatever_do_it": {
+	"character": "Roy Rube",
+	"text": "Smart. You know good work when you see it."
+  },
+
+  "anything_sale": {
+	"character": "Roy Rube",
+	"text": "Got some stuff. Made it myself. Real good quality considering what I got to work with here."
+  },
+
+  "just_looking": {
+	"character": "Roy Rube",
+	"text": "This is my place. Only real workshop in whole Gregerson. You looking at quality here."
+  }
+}

@@ -7,6 +7,15 @@ func _ready():
 	audio_player.stream = spawn_sound
 	add_child(audio_player)
 	audio_player.play()
+	# Connect DialogueManager to DialogueUI
+	var dialogue_manager = DialogueManager  # Since it's an autoload
+	var dialogue_ui = $UI/DialogueUI  # Adjust this path to match your scene
+	
+	if dialogue_manager and dialogue_ui:
+		dialogue_manager.dialogue_ui = dialogue_ui
+		print("Dialogue system connected!")
+	else:
+		print("Error: Could not connect dialogue system")
 
 	if NavigationManager.spawn_door_tag != null:
 		_on_level_spawn(NavigationManager.spawn_door_tag)

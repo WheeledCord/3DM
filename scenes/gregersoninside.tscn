@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://4tccuphjs5lf"]
+[gd_scene load_steps=8 format=3 uid="uid://4tccuphjs5lf"]
 
 [ext_resource type="Script" uid="uid://dblnlemoi8uox" path="res://scripts/spawnmanager.gd" id="1_3br6t"]
 [ext_resource type="TileSet" uid="uid://doy3xicswa1ad" path="res://textures/tileset.tres" id="1_iypgy"]
@@ -6,6 +6,9 @@
 [ext_resource type="AudioStream" uid="uid://dnxrjv1c76nqv" path="res://sounds/wise hopes of a trashman.mp3" id="3_kimxf"]
 [ext_resource type="PackedScene" uid="uid://mre0ooqiyoe2" path="res://scenes/door.tscn" id="4_gylo1"]
 [ext_resource type="Script" uid="uid://meutufrjh584" path="res://scripts/camera_2d.gd" id="6_q1bnk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q1bnk"]
+size = Vector2(2175, 928)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_3br6t")
@@ -52,16 +55,14 @@ layer_5/z_index = 2
 [node name="Player" parent="." instance=ExtResource("2_q0lye")]
 position = Vector2(-194, -386)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player", "boundary_area")]
 position = Vector2(57, 20)
-limit_left = 0
-limit_top = 0
-limit_right = 0
-limit_bottom = 0
-limit_smoothed = true
 position_smoothing_speed = 3.0
 rotation_smoothing_speed = 3.0
 script = ExtResource("6_q1bnk")
+player = NodePath("../Player")
+follow_mode = 1
+boundary_area = NodePath("../limit")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
@@ -70,3 +71,10 @@ offset_top = -323.0
 offset_right = 3191.0
 offset_bottom = 595.0
 color = Color(0, 0, 0, 1)
+
+[node name="limit" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limit"]
+position = Vector2(689, -320)
+shape = SubResource("RectangleShape2D_q1bnk")
+disabled = true

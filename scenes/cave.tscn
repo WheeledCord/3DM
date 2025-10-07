@@ -69,18 +69,12 @@ layer_5/z_index = 2
 [node name="Player" parent="." instance=ExtResource("5_aises")]
 position = Vector2(-194, -386)
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow_target", "tilemap")]
-position = Vector2(57, 20)
-limit_left = 0
-limit_top = 0
-limit_right = 0
-limit_bottom = 0
-limit_smoothed = true
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 10
+position = Vector2(1019, 72)
 position_smoothing_speed = 3.0
 rotation_smoothing_speed = 3.0
 script = ExtResource("6_c3r8b")
-follow_target = NodePath("../Player")
-tilemap = NodePath("../TileMap")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
@@ -90,37 +84,25 @@ offset_right = 3191.0
 offset_bottom = 595.0
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-z_index = 10
-offset_left = 894.0
-offset_top = 120.0
-offset_right = 1159.0
-offset_bottom = 215.0
+[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+z_index = 2
+layout_mode = 0
+offset_left = 517.0
+offset_top = -571.0
+offset_right = 4907.0
+offset_bottom = 347.0
+scale = Vector2(0.679999, 1)
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect3" type="ColorRect" parent="."]
-z_index = 10
-offset_left = 884.0
-offset_top = -70.0
-offset_right = 1149.0
-offset_bottom = 25.0
+[node name="ColorRect2" type="ColorRect" parent="ColorRect"]
+z_index = 2
+layout_mode = 0
+offset_left = 386.0
+offset_top = 443.0
+offset_right = 4776.0
+offset_bottom = 1361.0
+scale = Vector2(0.52, 1)
 color = Color(0, 0, 0, 1)
-
-[node name="ColorRect4" type="ColorRect" parent="."]
-z_index = 10
-offset_left = 1136.0
-offset_top = -75.0
-offset_right = 1402.0
-offset_bottom = 217.0
-color = Color(0, 0, 0, 1)
-
-[node name="ColorRect5" type="ColorRect" parent="."]
-z_index = 4096
-offset_left = -1167.0
-offset_top = -337.0
-offset_right = 3223.0
-offset_bottom = 581.0
-color = Color(0, 0, 0, 0.192157)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(-74, 0)

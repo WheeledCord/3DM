@@ -1,25 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnbnn8bxot6rv"]
+[gd_scene load_steps=6 format=3 uid="uid://cnbnn8bxot6rv"]
 
 [ext_resource type="PackedScene" uid="uid://de3ceg246pukp" path="res://scenes/player.tscn" id="1_ryivr"]
 [ext_resource type="PackedScene" uid="uid://mre0ooqiyoe2" path="res://scenes/door.tscn" id="2_8twik"]
 [ext_resource type="Script" uid="uid://meutufrjh584" path="res://scripts/camera_2d.gd" id="2_rulkh"]
 [ext_resource type="TileSet" uid="uid://doy3xicswa1ad" path="res://textures/tileset.tres" id="5_mnfm6"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxonx"]
+size = Vector2(637, 119)
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_ryivr")]
 z_index = 3
 position = Vector2(1249, 102)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-limit_left = 100
-limit_top = 100
-limit_right = 100
-limit_bottom = 100
-limit_smoothed = true
-position_smoothing_speed = 3.0
-rotation_smoothing_speed = 3.0
-script = ExtResource("2_rulkh")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(0, 96)
@@ -48,3 +41,20 @@ layer_5/z_index = 2
 position = Vector2(1249, 102)
 destination_level_tag = "cave"
 destination_door_tag = "cave2"
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player", "boundary_area")]
+position = Vector2(1248, 100)
+position_smoothing_speed = 3.0
+rotation_smoothing_speed = 3.0
+script = ExtResource("2_rulkh")
+player = NodePath("../Player")
+follow_mode = 1
+boundary_area = NodePath("../Area2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(1312, 65)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(143.5, 34.5)
+shape = SubResource("RectangleShape2D_wxonx")
+disabled = true
